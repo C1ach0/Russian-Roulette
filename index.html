@@ -12,22 +12,24 @@
     <div class="container">
       <div class="components">
         <div class="inFlex">
-            <div class="chip">
-                <div class="chip__icon">
-                  <ion-icon name="color-palette"></ion-icon>
-                </div>
-                <h1 id="title">Russian roulette</h1>
-                <div class="chip__close">
-                  <ion-icon name="close"></ion-icon>
-                </div>
-              </div>
+          <div class="chip">
+            <div class="chip__icon">
+              <ion-icon name="color-palette"></ion-icon>
+            </div>
+            <h1 id="title">Russian roulette</h1>
+            <div class="chip__close">
+              <ion-icon name="close"></ion-icon>
+            </div>
+          </div>
           <div class="form">
             <input
               type="text"
               class="form__input text-col"
               placeholder="List of members.... (name, name, name)"
             />
-            <div onclick="submit()" class="btn btn__primary"><p>Submit Members to List</p></div>
+            <div onclick="submit()" class="btn btn__primary">
+              <p>Submit Members to List</p>
+            </div>
           </div>
 
           <div class="chip">
@@ -40,7 +42,9 @@
             </div>
           </div>
 
-          <div onclick="roulette()" class="btn btn__primary hide" id="btn_roll"><p>Go roll</p></div>
+          <div onclick="roulette()" class="btn btn__primary hide" id="btn_roll">
+            <p>Go roll</p>
+          </div>
 
           <div class="chip hide" id="win_div">
             <div class="chip__icon">
@@ -52,7 +56,20 @@
             </div>
           </div>
         </div>
-        <div onclick="location.reload()" class="btn btn__primary" id="reset"><p>Reset</p></div>
+        <div class="flexOn">
+          <div onclick="location.reload()" class="btn btn__primary" id="reset">
+            <p>Reset</p>
+          </div>
+          <div class="chip mod px-4 py-2">
+            <p class="">Toggle remove</p>
+            <div class="switch">
+              <div class="switch__1">
+                <input id="switch-1" type="checkbox"/>
+                <label for="switch-1"></label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -60,9 +77,8 @@
       let invalidText =
         "Please enter the names in the free field and then validated.";
       let list = document.querySelector("#listMembers");
-      let btn_roll = document.querySelector('#btn_roll')
+      let btn_roll = document.querySelector("#btn_roll");
       let value = [];
-
       function submit() {
         value.length = 0;
         list.length = 0;
@@ -72,6 +88,7 @@
         btn_roll.classList.remove("hide");
         return (list.textContent = value.join(", "));
       }
+      let switch__1 = document.querySelector("#switch-1");
 
       let win = document.querySelector("#win");
 
@@ -80,7 +97,11 @@
           let roll = Math.floor(Math.random() * value[0].length);
           console.log(`Roll : ${roll}`);
           document.querySelector("#win_div").classList.remove("hide");
-          return (win.textContent = `Winner is ${value[0][roll]}`);
+          win.textContent = `Winner is ${value[0][roll]}`;
+          if (switch__1.checked) {
+            value[0].splice(roll, 1);
+            return (list.textContent = value[0].join(", "));
+          }
         } else {
           list.length = 0;
           return (list.textContent = invalidText);
@@ -89,3 +110,12 @@
     </script>
   </body>
 </html>
+
+<!-- 
+    array1 class 1
+    array2 class 2
+
+    
+
+
+ -->
