@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Russian Roulette</title>
+    <!-- <link rel="stylesheet" href="css/body.css" /> -->
+    <link rel="stylesheet" href="css/team.css" />
+    <link rel="icon" href="img/logo.ico" />
+  </head>
+  <body class="">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/roll.html">Roll</a></li>
+                <li><a href="/team.html">Roll Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="container">
+      <div class="components">
+        <div class="inFlex">
+            <!-- title -->
+          <div class="chip">
+            <div class="chip__icon">
+              <ion-icon name="color-palette"></ion-icon>
+            </div>
+            <h1 id="title">Russian roulette</h1>
+            <div class="chip__close">
+              <ion-icon name="close"></ion-icon>
+            </div>
+          </div>
+          <!-- arrays -->
+          <div class="form">
+            <input id="class1"
+              type="text"
+              class="form__input text-col"
+              placeholder="List of members.... (name, name, name)"
+            />
+            <input id="class2"
+              type="text"
+              class="form__input text-col"
+              placeholder="List of members.... (name, name, name)"
+            />
+            <div onclick="submit()" class="btn btn__primary">
+              <p>Submit Members to List</p>
+            </div>
+          </div>
+
+          <div class="chip">
+            <div class="chip__icon">
+              <ion-icon name="color-palette"></ion-icon>
+            </div>
+            <p id="listMembers">List of all members</p>
+            <div class="chip__close">
+              <ion-icon name="close"></ion-icon>
+            </div>
+          </div>
+
+          <div onclick="roulette()" class="btn btn__primary hide" id="btn_roll">
+            <p>Go roll</p>
+          </div>
+
+          <div class="chip hide" id="win_div">
+            <div class="chip__icon">
+              <ion-icon name="color-palette"></ion-icon>
+            </div>
+            <p id="win"></p>
+            <div class="chip__close">
+              <ion-icon name="close"></ion-icon>
+            </div>
+          </div>
+        </div>
+        <div class="flexOn">
+          <div onclick="location.reload()" class="btn btn__primary" id="reset">
+            <p>Reset</p>
+          </div>
+          <div class="chip mod px-4 py-2">
+            <p class="">Toggle remove</p>
+            <div class="switch">
+              <div class="switch__1">
+                <input id="switch-1" type="checkbox"/>
+                <label for="switch-1"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let invalidText =
+        "Please enter the names in the free field and then validated.";
+      let list = document.querySelector("#listMembers");
+      let btn_roll = document.querySelector("#btn_roll");
+      let value = [];
+      function submit() {
+        value.length = 0;
+        list.length = 0;
+        let val = document.querySelector("input").value;
+        if (val.length <= 0) return invalidText;
+        value.push(val.trim().split(","));
+        btn_roll.classList.remove("hide");
+        return (list.textContent = value.join(", "));
+      }
+      let switch__1 = document.querySelector("#switch-1");
+
+      let win = document.querySelector("#win");
+
+      function roulette() {
+        if (value[0].length > 0) {
+          let roll = Math.floor(Math.random() * value[0].length);
+          console.log(`Roll : ${roll}`);
+          document.querySelector("#win_div").classList.remove("hide");
+          win.textContent = `Winner is ${value[0][roll]}`;
+          if (switch__1.checked) {
+            value[0].splice(roll, 1);
+            return (list.textContent = value[0].join(", "));
+          }
+        } else {
+          list.length = 0;
+          return (list.textContent = invalidText);
+        }
+      }
+    </script>
+  </body>
+</html>
+
+<!-- 
+    array1 class 1
+    array2 class 2
+
+    2 x 2
+
+    sort table of team
+ -->
