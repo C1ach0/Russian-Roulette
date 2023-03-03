@@ -60,6 +60,9 @@ html {
     font-size: 14px;
     color: #6d5dfc;
 }
+.text-col, .text-col::placeholder {
+    color: darkslategrey !important;
+}
 
 #win {
     font-weight: 600;

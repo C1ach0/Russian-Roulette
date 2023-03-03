@@ -4,6 +4,9 @@
 
 Simply download the program and then launch it in your browser.
 <br>Then you have to enter names that will be drawn during roulette.
+ 
+### Information :
+- To create the list of members, you have to put them "," between each name.
 
 ## Languages :
 - HTML
