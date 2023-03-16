@@ -11,20 +11,19 @@
   </head>
   <body class="">
     <header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/roll.html">Roll</a></li>
-                <li><a href="/team.html">Roll Team</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/roll.html">Roll</a></li>
+          <li><a href="/team.html">Roll Team</a></li>
+        </ul>
+      </nav>
     </header>
-
 
     <div class="container">
       <div class="components">
         <div class="inFlex">
-            <!-- title -->
+          <!-- title -->
           <div class="chip">
             <div class="chip__icon">
               <ion-icon name="color-palette"></ion-icon>
@@ -36,12 +35,14 @@
           </div>
           <!-- arrays -->
           <div class="form">
-            <input id="class1"
+            <input
+              id="class1"
               type="text"
               class="form__input text-col"
               placeholder="List of members.... (name, name, name)"
             />
-            <input id="class2"
+            <input
+              id="class2"
               type="text"
               class="form__input text-col"
               placeholder="List of members.... (name, name, name)"
@@ -79,52 +80,80 @@
           <div onclick="location.reload()" class="btn btn__primary" id="reset">
             <p>Reset</p>
           </div>
-          <div class="chip mod px-4 py-2">
-            <p class="">Toggle remove</p>
-            <div class="switch">
-              <div class="switch__1">
-                <input id="switch-1" type="checkbox"/>
-                <label for="switch-1"></label>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
 
     <script>
+
       let invalidText =
         "Please enter the names in the free field and then validated.";
       let list = document.querySelector("#listMembers");
       let btn_roll = document.querySelector("#btn_roll");
-      let value = [];
+      let value = [],
+        class1 = [],
+        class2 = [],
+        end =[];
       function submit() {
         value.length = 0;
         list.length = 0;
-        let val = document.querySelector("input").value;
-        if (val.length <= 0) return invalidText;
-        value.push(val.trim().split(","));
+        let val1 = document.getElementById("class1").value;
+        let val2 = document.getElementById("class2").value;
+        
+        
+
+        class1.push(val1.trim().split(","));
+        class2.push(val2.trim().split(","));
+
+        value = class1.concat(class2);
+
         btn_roll.classList.remove("hide");
+
         return (list.textContent = value.join(", "));
       }
-      let switch__1 = document.querySelector("#switch-1");
 
+      let switch__1 = document.querySelector("#switch-1");
       let win = document.querySelector("#win");
 
+      
+      // function roll(cl) {
+      //   console.log(cl);
+      //   return Math.floor(Math.random() * cl.length);
+      // }
+
       function roulette() {
-        if (value[0].length > 0) {
-          let roll = Math.floor(Math.random() * value[0].length);
-          console.log(`Roll : ${roll}`);
+        console.log(class1[0], class2[0])
+        // if (class1.length > 1 && class2.length > 1) {
+          roll.length = 0;
+          end.length = 0;
+          let roleNb = 0;
+          roleNb = Math.floor(Math.random() * class1[0].length);
+          end.push(class1[0][roleNb])
+          class1.splice(roleNb, 1);
+
+          roleNb = Math.floor(Math.random() * class1[0].length);
+          end.push(class1[0][roleNb])
+          class1.splice(roleNb, 1);
+
+          
+          roleNb = Math.floor(Math.random() * class2[0].length);
+          end.push(class2[0][roleNb])
+          class2.splice(roleNb, 1);
+
+          
+          roleNb = Math.floor(Math.random() * class2[0].length);
+          end.push(class2[0][roleNb])
+          class2.splice(roleNb, 1);
+
+          console.log(end)
           document.querySelector("#win_div").classList.remove("hide");
-          win.textContent = `Winner is ${value[0][roll]}`;
-          if (switch__1.checked) {
-            value[0].splice(roll, 1);
-            return (list.textContent = value[0].join(", "));
-          }
-        } else {
-          list.length = 0;
-          return (list.textContent = invalidText);
-        }
+          win.textContent = `Team : ${end.join(', ')}`;
+          // value[0].splice(roll, 1);
+          // return (list.textContent = value[0].join(", "));
+        // } else {
+        //   list.length = 0;
+        //   return (list.textContent = invalidText);
+        // }
       }
     </script>
   </body>
